@@ -1427,4 +1427,6 @@ bool pc_attendance_enabled();
 int32 pc_attendance_counter( struct map_session_data* sd );
 void pc_attendance_claim_reward( struct map_session_data* sd );
 
+bool pc_expand_inventory(struct map_session_data *sd, int adjustSize);
+
 #endif /* PC_HPP */

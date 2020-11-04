@@ -5227,6 +5227,13 @@
 	script_set_constant("REFINE_MATERIAL_ID", 0, false, false);
 	script_set_constant("REFINE_ZENY_COST", 1, false, false);
 
+	/* Extended inventory */
+	export_constant(EXPAND_INVENTORY_RESULT_SUCCESS);
+	export_constant(EXPAND_INVENTORY_RESULT_FAILED);
+	export_constant(EXPAND_INVENTORY_RESULT_OTHER_WORK);
+	export_constant(EXPAND_INVENTORY_RESULT_MISSING_ITEM);
+	export_constant(EXPAND_INVENTORY_RESULT_MAX_SIZE);
+
 	/* NPC view ids */
 	// Special macro to strip the prefix 'JT_'
 	#if !defined(export_constant_npc)

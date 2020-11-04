@@ -1520,7 +1520,7 @@ ACMD_FUNC(itemreset)
 	int i;
 	nullpo_retr(-1, sd);
 
-	for (i = 0; i < MAX_INVENTORY; i++) {
+	for (i = 0; i < sd->status.inventory_size; i++) {
 		if (sd->inventory.u.items_inventory[i].amount && sd->inventory.u.items_inventory[i].equip == 0 && !itemdb_ishatched_egg(&sd->inventory.u.items_inventory[i])) {
 			pc_delitem(sd, i, sd->inventory.u.items_inventory[i].amount, 0, 0, LOG_TYPE_COMMAND);
 		}
@@ -4606,7 +4606,7 @@ ACMD_FUNC(repairall)
 	nullpo_retr(-1, sd);
 
 	count = 0;
-	for (i = 0; i < MAX_INVENTORY; i++) {
+	for (i = 0; i < sd->status.inventory_size; i++) {
 		if (sd->inventory.u.items_inventory[i].nameid && sd->inventory.u.items_inventory[i].attribute == 1 && !itemdb_ishatched_egg(&sd->inventory.u.items_inventory[i])) {
 			sd->inventory.u.items_inventory[i].attribute = 0;
 			clif_produceeffect(sd, 0, sd->inventory.u.items_inventory[i].nameid);
@@ -5639,7 +5639,7 @@ ACMD_FUNC(dropall)
 		}
 	}
 
-	for( i = 0; i < MAX_INVENTORY; i++ ) {
+	for( i = 0; i < sd->status.inventory_size; i++ ) {
 		if( sd->inventory.u.items_inventory[i].amount ) {
 			if( (item_data = itemdb_exists(sd->inventory.u.items_inventory[i].nameid)) == NULL ) {
 				ShowDebug("Non-existant item %d on dropall list (account_id: %d, char_id: %d)\n", sd->inventory.u.items_inventory[i].nameid, sd->status.account_id, sd->status.char_id);
@@ -5686,7 +5686,7 @@ ACMD_FUNC(storeall)
 		}
 	}
 
-	for (i = 0; i < MAX_INVENTORY; i++) {
+	for (i = 0; i < sd->status.inventory_size; i++) {
 		if (sd->inventory.u.items_inventory[i].amount) {
 			if(sd->inventory.u.items_inventory[i].equip != 0)
 				pc_unequipitem(sd, i, 3);
@@ -7243,7 +7243,7 @@ ACMD_FUNC(identify)
 
 	nullpo_retr(-1, sd);
 
-	for(i=num=0;i<MAX_INVENTORY;i++){
+	for(i=num=0;i<sd->status.inventory_size;i++){
 		if(sd->inventory.u.items_inventory[i].nameid > 0 && sd->inventory.u.items_inventory[i].identify != 1) {
 			num++;
 		}
@@ -8902,7 +8902,7 @@ ACMD_FUNC(itemlist)
 	} else if( strcmp(parent_cmd, "itemlist") == 0 ) {
 		location = "inventory";
 		items = sd->inventory.u.items_inventory;
-		size = MAX_INVENTORY;
+		size = sd->status.inventory_size;
 	} else
 		return 1;
 

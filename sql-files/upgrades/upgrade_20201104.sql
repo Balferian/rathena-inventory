@@ -1,0 +1,1 @@
+ALTER TABLE `char` ADD `inventory_size` INT(11) UNSIGNED NOT NULL DEFAULT '100';

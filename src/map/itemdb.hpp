@@ -123,6 +123,14 @@ enum item_itemid : t_itemid
 	ITEMID_WL_MB_SG						= 100065,
 };
 
+///Extended inventory tickets
+enum extended_inventory_item_list : t_itemid
+{
+	ITEMID_INVENTORY_EX_EVT 	= 25791,
+	ITEMID_INVENTORY_EX_DIS,
+	ITEMID_INVENTORY_EX,
+};
+
 ///Rune Knight
 enum rune_item_list : t_itemid
 {

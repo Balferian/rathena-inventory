@@ -578,6 +578,22 @@ enum e_memorial_dungeon_command : uint16 {
 	COMMAND_MEMORIALDUNGEON_DESTROY_FORCE = 0x3,
 };
 
+enum expand_inventory {
+	EXPAND_INVENTORY_ASK_CONFIRMATION = 0,
+	EXPAND_INVENTORY_FAILED = 1,
+	EXPAND_INVENTORY_OTHER_WORK = 2,
+	EXPAND_INVENTORY_MISSING_ITEM = 3,
+	EXPAND_INVENTORY_MAX_SIZE = 4
+};
+
+enum expand_inventory_result {
+	EXPAND_INVENTORY_RESULT_SUCCESS = 0,
+	EXPAND_INVENTORY_RESULT_FAILED = 1,
+	EXPAND_INVENTORY_RESULT_OTHER_WORK = 2,
+	EXPAND_INVENTORY_RESULT_MISSING_ITEM = 3,
+	EXPAND_INVENTORY_RESULT_MAX_SIZE = 4
+};
+
 int clif_setip(const char* ip);
 void clif_setbindip(const char* ip);
 void clif_setport(uint16 port);
@@ -1109,6 +1125,13 @@ void clif_notify_bindOnEquip(struct map_session_data *sd, int n);
 void clif_merge_item_open(struct map_session_data *sd);
 
 void clif_broadcast_obtain_special_item(const char *char_name, t_itemid nameid, t_itemid container, enum BROADCASTING_SPECIAL_ITEM_OBTAIN type);
+
+void clif_inventoryExpansionInfo(struct map_session_data* sd);
+void clif_inventoryExpandAck(struct map_session_data* sd, enum expand_inventory result, int itemId);
+void clif_inventoryExpandResult(struct map_session_data* sd, enum expand_inventory_result result);
+void clif_parse_inventoryExpansion(int fd, struct map_session_data* sd);
+void clif_parse_inventoryExpansionConfirmed(int fd, struct map_session_data* sd);	
+void clif_parse_inventoryExpansionRejected(int fd, struct map_session_data* sd);
 
 void clif_dressing_room(struct map_session_data *sd, int flag);
 void clif_navigateTo(struct map_session_data *sd, const char* mapname, uint16 x, uint16 y, uint8 flag, bool hideWindow, uint16 mob_id );

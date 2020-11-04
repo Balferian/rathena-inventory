@@ -15961,7 +15961,7 @@ bool skill_check_condition_castbegin(struct map_session_data* sd, uint16 skill_i
 		case AB_ANCILLA: {
 				int count = 0;
 
-				for( i = 0; i < MAX_INVENTORY; i++ )
+				for( i = 0; i < sd->status.inventory_size; i++ )
 					if( sd->inventory.u.items_inventory[i].nameid == ITEMID_ANCILLA )
 						count += sd->inventory.u.items_inventory[i].amount;
 				if( count >= 3 ) {
@@ -17526,7 +17526,7 @@ void skill_repairweapon(struct map_session_data *sd, int idx) {
 
 	if( idx == 0xFFFF ) // No item selected ('Cancel' clicked)
 		return;
-	if( idx < 0 || idx >= MAX_INVENTORY )
+	if( idx < 0 || idx >= sd->status.inventory_size )
 		return; //Invalid index??
 
 	item = &target_sd->inventory.u.items_inventory[idx];
@@ -17575,7 +17575,7 @@ void skill_identify(struct map_session_data *sd, int idx)
 
 	sd->state.workinprogress = WIP_DISABLE_NONE;
 
-	if(idx >= 0 && idx < MAX_INVENTORY) {
+	if(idx >= 0 && idx < sd->status.inventory_size) {
 		if(sd->inventory.u.items_inventory[idx].nameid > 0 && sd->inventory.u.items_inventory[idx].identify == 0 ){
 			flag=0;
 			sd->inventory.u.items_inventory[idx].identify = 1;
@@ -17591,7 +17591,7 @@ void skill_weaponrefine(struct map_session_data *sd, int idx)
 {
 	nullpo_retv(sd);
 
-	if (idx >= 0 && idx < MAX_INVENTORY)
+	if (idx >= 0 && idx < sd->status.inventory_size)
 	{
 		struct item *item;
 		struct item_data *ditem = sd->inventory_data[idx];
@@ -19792,7 +19792,7 @@ short skill_can_produce_mix(struct map_session_data *sd, t_itemid nameid, int tr
 		} else {
 			unsigned short idx, amt;
 
-			for (idx = 0, amt = 0; idx < MAX_INVENTORY; idx++)
+			for (idx = 0, amt = 0; idx < sd->status.inventory_size; idx++)
 				if (sd->inventory.u.items_inventory[idx].nameid == nameid_produce)
 					amt += sd->inventory.u.items_inventory[idx].amount;
 			if (amt < qty * skill_produce_db[i].mat_amount[j])
@@ -20703,7 +20703,7 @@ int skill_elementalanalysis(struct map_session_data* sd, int n, uint16 skill_lv,
 
 		idx = item_list[i*2+0]-2;
 
-		if( idx < 0 || idx >= MAX_INVENTORY ){
+		if( idx < 0 || idx >= sd->status.inventory_size ){
 			return 1;
 		}
 
@@ -20781,7 +20781,7 @@ int skill_changematerial(struct map_session_data *sd, int n, unsigned short *ite
 						for( k = 0; k < n; k++ ) {
 							int idx = item_list[k*2+0]-2;
 
-							if( idx < 0 || idx >= MAX_INVENTORY ){
+							if( idx < 0 || idx >= sd->status.inventory_size ){
 								return 0;
 							}
 

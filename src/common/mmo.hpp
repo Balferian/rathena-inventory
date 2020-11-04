@@ -40,7 +40,23 @@
 #endif
 
 #define MAX_MAP_PER_SERVER 1500 /// Maximum amount of maps available on a server
-#define MAX_INVENTORY 100 ///Maximum items in player inventory
+
+#ifndef MAX_INVENTORY
+	#if PACKETVER_MAIN_NUM >= 20181219 || PACKETVER_RE_NUM >= 20181219 || PACKETVER_ZERO_NUM >= 20181212
+		#define MAX_INVENTORY 200
+	#else
+		#define MAX_INVENTORY 100
+	#endif  // PACKETVER_MAIN_NUM >= 20181219 || PACKETVER_RE_NUM >= 20181219 || PACKETVER_ZERO_NUM >= 20181212
+#endif  // MAX_INVENTORY
+
+#ifndef FIXED_INVENTORY_SIZE
+	#define FIXED_INVENTORY_SIZE 100
+#endif
+
+#if FIXED_INVENTORY_SIZE > MAX_INVENTORY
+	#error FIXED_INVENTORY_SIZE must be same or smaller than MAX_INVENTORY
+#endif
+
 /** Max number of characters per account. Note that changing this setting alone is not enough if the client is not hexed to support more characters as well.
 * Max value tested was 265 */
 #ifndef MAX_CHARS
@@ -547,6 +563,7 @@ struct mmo_charstatus {
 
 	unsigned char hotkey_rowshift;
 	unsigned char hotkey_rowshift2;
+	int inventory_size;
 	unsigned long title_id;
 };
 
