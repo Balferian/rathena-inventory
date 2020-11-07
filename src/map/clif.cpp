@@ -20531,9 +20531,9 @@ void clif_parse_inventoryExpansion(int fd, struct map_session_data* sd)
 	t_itemid nameid = ITEMID_INVENTORY_EX;
 	
 	if(pc_search_inventory( sd, ITEMID_INVENTORY_EX_EVT ) != -1)
-		nameid = ITEMID_INVENTORY_EX;
+		nameid = ITEMID_INVENTORY_EX_EVT;
 	else if(pc_search_inventory( sd, ITEMID_INVENTORY_EX_DIS ) != -1)
-		nameid = ITEMID_INVENTORY_EX;
+		nameid = ITEMID_INVENTORY_EX_DIS;
 
 	if(pc_search_inventory( sd, nameid ) != -1)
 		clif_inventoryExpandAck(sd, EXPAND_INVENTORY_ASK_CONFIRMATION, nameid);
@@ -20555,9 +20555,8 @@ void clif_parse_inventoryExpansionConfirmed(int fd, struct map_session_data* sd)
 	}
 	int index = -1;
 	
-	if(pc_search_inventory( sd, ITEMID_INVENTORY_EX ) != -1)
-		index = pc_search_inventory( sd, ITEMID_INVENTORY_EX_EVT );
-	else if(pc_search_inventory( sd, ITEMID_INVENTORY_EX_EVT ) != -1)
+	index = pc_search_inventory( sd, ITEMID_INVENTORY_EX );
+	if(pc_search_inventory( sd, ITEMID_INVENTORY_EX_EVT ) != -1)
 		index = pc_search_inventory( sd, ITEMID_INVENTORY_EX_EVT );
 	else if(pc_search_inventory( sd, ITEMID_INVENTORY_EX_DIS ) != -1)
 		index = pc_search_inventory( sd, ITEMID_INVENTORY_EX_DIS );
